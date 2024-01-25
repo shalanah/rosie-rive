@@ -5,12 +5,9 @@ function App() {
     src: "rosie.riv",
     stateMachines: "State Machine 1",
     layout: new Layout({ fit: Fit.Contain, alignment: Alignment.Center }),
+    autoplay: true,
   });
-  return (
-    <>
-      <RiveComponent />
-    </>
-  );
+  return <RiveComponent />;
 }
 
 export default App;
