@@ -2,7 +2,7 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.87);
+  color: #000;
   background-color: #a1ccff;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -16,7 +16,16 @@ html,
   height: 100%;
   margin: 0;
   padding: 0;
-  line-height: 0;
+  line-height: 1.2;
+}
+#root {
+  display: flex;
+  position: relative;
+}
+button,
+a {
+  all: unset;
+  cursor: pointer;
 }
 
 *,
