@@ -1,6 +1,6 @@
-# Rosie Rive
+# Rosie
 
-A for-fun animation study of Rosie the Robot. Made for my own educational purposes to learn Rive, animation, and has NO affiliation with the The Jetsons.
+A for-fun animation study of Rosie the Robot using Rive, no affiliation with the The Jetsons.
 
 ## Running
 
@@ -8,7 +8,7 @@ A for-fun animation study of Rosie the Robot. Made for my own educational purpos
 - `npm install` or `yarn install`
 - `npm run dev` or `yarn dev`
 
-### React + TypeScript + Vite
+### Vite Tips (from Vite installation)
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 

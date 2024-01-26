@@ -12,6 +12,7 @@ import { useState } from "react";
 import audioWalking from "./assets/loop_mixdown8.mp3";
 import { useStateContext } from "./hooks/useStateContext";
 import { usePrevious } from "./hooks/usePrevious";
+import audioBg from "./assets/Mellow-Mind_Looping.mp3";
 
 export const Rosie = () => {
   const { replay, sound } = useStateContext();
@@ -31,6 +32,9 @@ export const Rosie = () => {
 
   const audioWalkingLoaded = useMemo(() => {
     return new Audio(audioWalking);
+  }, []);
+  const audioBgLoaded = useMemo(() => {
+    return new Audio(audioBg);
   }, []);
 
   const [hover, setHover] = useState(false);
@@ -74,7 +78,17 @@ export const Rosie = () => {
   // Toggling sound
   useEffect(() => {
     audioWalkingLoaded.volume = sound ? 0.7 : 0;
-  }, [sound, audioWalkingLoaded]);
+    audioBgLoaded.volume = sound ? 0.075 : 0;
+  }, [sound, audioWalkingLoaded, audioBgLoaded]);
+
+  // Background music
+  useEffect(() => {
+    // TODO: Repeat background music
+    if (replay === 1 && prevReplay !== replay) {
+      audioBgLoaded.currentTime = 0;
+      audioBgLoaded.play();
+    }
+  }, [audioBgLoaded, replay, prevReplay]);
 
   // Replay
   useEffect(() => {
