@@ -10,8 +10,11 @@ import {
 } from "@rive-app/react-canvas-lite";
 import { useState } from "react";
 import audioWalking from "./assets/loop_mixdown8.mp3";
+import { useStateContext } from "./hooks/useStateContext";
 
-export const Rosie = ({ replay }: { replay: number }) => {
+export const Rosie = () => {
+  const { replay } = useStateContext();
+
   const [loaded, setLoaded] = useState(false);
   const { rive, RiveComponent } = useRive({
     src: "assets/rosie.riv",
