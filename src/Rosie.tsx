@@ -11,13 +11,15 @@ import {
 import { useState } from "react";
 import audioWalking from "./assets/loop_mixdown8.mp3";
 import { useStateContext } from "./hooks/useStateContext";
+import { usePrevious } from "./hooks/usePrevious";
 
 export const Rosie = () => {
-  const { replay } = useStateContext();
+  const { replay, sound } = useStateContext();
+  const prevReplay = usePrevious(replay);
 
   const [, setLoaded] = useState(false);
   const { rive, RiveComponent } = useRive({
-    src: "assets/rosie.riv",
+    src: "assets/rosie-14.riv",
     stateMachines: "State Machine 1",
     artboard: "rosie animation blue",
     layout: new Layout({ fit: Fit.Contain, alignment: Alignment.Center }),
@@ -37,7 +39,6 @@ export const Rosie = () => {
   // Event listeners
   useEffect(() => {
     const riveEventHandler: EventCallback = (event) => {
-      console.log(event, "here");
       switch (event.type) {
         case EventType.StateChange: {
           const data = event.data as [string];
@@ -58,15 +59,9 @@ export const Rosie = () => {
     if (rive) {
       rive.on(EventType.RiveEvent, riveEventHandler);
       rive.on(EventType.StateChange, riveEventHandler);
-      rive.on(EventType.Play, riveEventHandler);
-      rive.on(EventType.Load, riveEventHandler);
-      // rive.on(EventType.Advance, riveEventHandler);
     }
     return () => {
-      if (rive) {
-        console.log("unmount");
-        rive.removeAllRiveEventListeners();
-      }
+      if (rive) rive.removeAllRiveEventListeners();
     };
   }, [rive]);
 
@@ -76,18 +71,23 @@ export const Rosie = () => {
     document.body.classList[isHovering ? "add" : "remove"]("cursor-pointer");
   }, [hover, animation]);
 
+  // Toggling sound
+  useEffect(() => {
+    audioWalkingLoaded.volume = sound ? 0.7 : 0;
+  }, [sound, audioWalkingLoaded]);
+
   // Replay
   useEffect(() => {
-    if (replay !== 0 && rive) {
+    if (replay !== 0 && prevReplay !== replay && rive) {
       rive.reset({
         artboard: "rosie animation blue",
         stateMachines: "State Machine 1",
         autoplay: true,
       });
       rive.play();
-      audioWalkingLoaded.volume = 0.7;
+      audioWalkingLoaded.currentTime = 0;
       audioWalkingLoaded.play();
     }
-  }, [rive, replay, audioWalkingLoaded]);
+  }, [rive, replay, audioWalkingLoaded, sound, prevReplay]);
   return <RiveComponent />;
 };
