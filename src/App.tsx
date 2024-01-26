@@ -7,10 +7,19 @@ import { useStateContext } from "./hooks/useStateContext";
 import styled from "styled-components";
 
 const Button = styled.button`
-  transition: 0.1s;
-  &:hover {
-    filter: drop-shadow(0 0 3px #d0f4ff);
+  transition: 0.1s transform;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  &:hover,
+  &:focus-visible {
+    /* filter: drop-shadow(0 0 3px #d0f4ff); */
     transform: scale(1.1);
+    outline: 2px dashed #000;
+    outline-offset: 2px;
   }
   &:active {
     transform: scale(1); // gives a nice bouncing effect
@@ -37,7 +46,7 @@ const Nav = styled.nav`
   top: 18px;
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 5px;
 `;
 
 const strokeWidth = 2.75;
@@ -47,6 +56,38 @@ export function App() {
   return (
     <div className="pos-full pos-up-left">
       <Rosie />
+      <Nav>
+        <Button onClick={() => setReplay((v) => ++v)}>
+          <span className="sr-only">Replay animation</span>
+          <RestartIcon
+            focusable="false"
+            aria-hidden="true"
+            width={24}
+            height={24}
+            strokeWidth={strokeWidth}
+          />
+        </Button>
+        <Button onClick={() => setSound(!sound)}>
+          <span className="sr-only">Toggle sound {sound ? "off" : "on"}</span>
+          {sound ? (
+            <VolumeOnIcon
+              focusable="false"
+              aria-hidden="true"
+              width={32}
+              height={32}
+              strokeWidth={strokeWidth}
+            />
+          ) : (
+            <VolumeOffIcon
+              focusable="false"
+              aria-hidden="true"
+              width={32}
+              height={32}
+              strokeWidth={strokeWidth}
+            />
+          )}
+        </Button>
+      </Nav>
       <Footer>
         <Button
           as={"a"}
@@ -65,40 +106,6 @@ export function App() {
         </Button>
         Study of Rosie, not affiliated with The Jetsons
       </Footer>
-      <Nav>
-        <Button onClick={() => setReplay((v) => ++v)}>
-          <span className="sr-only">Replay animation</span>
-          <RestartIcon
-            focusable="false"
-            aria-hidden="true"
-            width={24}
-            height={24}
-            strokeWidth={strokeWidth}
-          />
-        </Button>
-        <Button>
-          <span className="sr-only">Toggle sound {sound ? "off" : "on"}</span>
-          {sound ? (
-            <VolumeOnIcon
-              focusable="false"
-              aria-hidden="true"
-              width={32}
-              height={32}
-              strokeWidth={strokeWidth}
-              onClick={() => setSound(false)}
-            />
-          ) : (
-            <VolumeOffIcon
-              focusable="false"
-              aria-hidden="true"
-              width={32}
-              height={32}
-              strokeWidth={strokeWidth}
-              onClick={() => setSound(true)}
-            />
-          )}
-        </Button>
-      </Nav>
     </div>
   );
 }
