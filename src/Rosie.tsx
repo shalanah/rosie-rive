@@ -15,7 +15,7 @@ import { useStateContext } from "./hooks/useStateContext";
 export const Rosie = () => {
   const { replay } = useStateContext();
 
-  const [loaded, setLoaded] = useState(false);
+  const [, setLoaded] = useState(false);
   const { rive, RiveComponent } = useRive({
     src: "assets/rosie.riv",
     stateMachines: "State Machine 1",
