@@ -1,6 +1,6 @@
 # Rosie Rive
 
-A for-fun animation study of Rosie the Robot from the Jetsons to learn more about how to use Rive.
+A for-fun animation study of Rosie the Robot. Made for my own educational purposes to learn Rive, animation, and has NO affiliation with the The Jetsons.
 
 ## Running
 
