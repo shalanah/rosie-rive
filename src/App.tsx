@@ -1,10 +1,9 @@
 import { Rosie } from "./Rosie";
 import GithubIcon from "./assets/github.svg?react";
-import RotateIcon from "./assets/rotate-ccw.svg?react";
+import RestartIcon from "./assets/rotate-ccw.svg?react";
 import VolumeOnIcon from "./assets/volume-2.svg?react";
 import VolumeOffIcon from "./assets/volume-x.svg?react";
 import { useStateContext } from "./hooks/useStateContext";
-
 import styled from "styled-components";
 
 const Button = styled.button`
@@ -54,25 +53,35 @@ export function App() {
           href="https://github.com/shalanah/rosie-rive"
           title="Github - Rosie Rive"
           target="_blank"
-          aria-label="Github"
         >
-          <GithubIcon width={30} height={30} strokeWidth={strokeWidth} />
-          <span aria-hidden="true">Github - Rosie Rive</span>
+          <span className="sr-only">Github - Rosie Rive</span>
+          <GithubIcon
+            focusable="false"
+            aria-hidden="true"
+            width={30}
+            height={30}
+            strokeWidth={strokeWidth}
+          />
         </Button>
         Study of Rosie, not affiliated with The Jetsons
       </Footer>
       <Nav>
-        <Button
-          aria-label="Replay animation"
-          onClick={() => setReplay((v) => ++v)}
-        >
-          <span aria-hidden="true">Replay animation</span>
-          <RotateIcon width={24} height={24} strokeWidth={strokeWidth} />
+        <Button onClick={() => setReplay((v) => ++v)}>
+          <span className="sr-only">Replay animation</span>
+          <RestartIcon
+            focusable="false"
+            aria-hidden="true"
+            width={24}
+            height={24}
+            strokeWidth={strokeWidth}
+          />
         </Button>
-        <Button aria-label="Toggle sound">
-          <span aria-hidden="true">Sound is {sound ? "on" : "off"}</span>
+        <Button>
+          <span className="sr-only">Toggle sound {sound ? "off" : "on"}</span>
           {sound ? (
             <VolumeOnIcon
+              focusable="false"
+              aria-hidden="true"
               width={32}
               height={32}
               strokeWidth={strokeWidth}
@@ -80,6 +89,8 @@ export function App() {
             />
           ) : (
             <VolumeOffIcon
+              focusable="false"
+              aria-hidden="true"
               width={32}
               height={32}
               strokeWidth={strokeWidth}

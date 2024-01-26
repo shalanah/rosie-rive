@@ -87,8 +87,6 @@ export const Rosie = () => {
       rive.play();
       audioWalkingLoaded.volume = 0.7;
       audioWalkingLoaded.play();
-      // audioIntroLoaded.volume = 0.2;
-      // audioIntroLoaded.play();
     }
   }, [rive, replay, audioWalkingLoaded]);
   return <RiveComponent />;
