@@ -35,3 +35,32 @@ a {
   margin: 0;
   padding: 0;
 }
+
+.cursor-pointer,
+.cursor-pointer * {
+  cursor: pointer;
+}
+
+/* https://a11y-guidelines.orange.com/en/articles/accessible-hiding/ */
+[aria-hidden="true"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.pos-full {
+  width: 100%;
+  height: 100%;
+}
+
+.pos-up-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+}

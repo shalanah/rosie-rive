@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import {
   useRive,
   Layout,
@@ -6,20 +6,50 @@ import {
   Alignment,
   EventType,
   EventCallback,
+  // useStateMachineInput, // TODO: Learn how to use this better... maybe don't need to listen to events?
 } from "@rive-app/react-canvas-lite";
+import { useState } from "react";
+import audioWalking from "./assets/loop_mixdown8.mp3";
 
 export const Rosie = ({ replay }: { replay: number }) => {
+  const [loaded, setLoaded] = useState(false);
   const { rive, RiveComponent } = useRive({
-    src: "assets/rosie-10.riv",
+    src: "assets/rosie.riv",
     stateMachines: "State Machine 1",
     artboard: "rosie animation blue",
     layout: new Layout({ fit: Fit.Contain, alignment: Alignment.Center }),
-    autoplay: true,
+    autoplay: false,
+    onLoad: () => {
+      setLoaded(true);
+    },
   });
 
+  const audioWalkingLoaded = useMemo(() => {
+    return new Audio(audioWalking);
+  }, []);
+
+  const [hover, setHover] = useState(false);
+  const [animation, setAnimation] = useState(["start"]);
+
+  // Event listeners
   useEffect(() => {
     const riveEventHandler: EventCallback = (event) => {
-      console.log(event);
+      console.log(event, "here");
+      switch (event.type) {
+        case EventType.StateChange: {
+          const data = event.data as [string];
+          setAnimation(data);
+          return;
+        }
+        case EventType.RiveEvent: {
+          const { name } = event.data as { name: string };
+          if (name === "Event Exit") setHover(false);
+          if (name === "Event Enter") setHover(true);
+          return;
+        }
+        default:
+          return;
+      }
     };
 
     if (rive) {
@@ -37,6 +67,13 @@ export const Rosie = ({ replay }: { replay: number }) => {
     };
   }, [rive]);
 
+  // Mouse cursor
+  useEffect(() => {
+    const isHovering = hover && animation.includes("interactive");
+    document.body.classList[isHovering ? "add" : "remove"]("cursor-pointer");
+  }, [hover, animation]);
+
+  // Replay
   useEffect(() => {
     if (replay !== 0 && rive) {
       rive.reset({
@@ -45,7 +82,11 @@ export const Rosie = ({ replay }: { replay: number }) => {
         autoplay: true,
       });
       rive.play();
+      audioWalkingLoaded.volume = 0.7;
+      audioWalkingLoaded.play();
+      // audioIntroLoaded.volume = 0.2;
+      // audioIntroLoaded.play();
     }
-  }, [rive, replay]);
+  }, [rive, replay, audioWalkingLoaded]);
   return <RiveComponent />;
 };
