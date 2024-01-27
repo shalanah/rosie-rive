@@ -27,6 +27,7 @@ button,
 a {
   all: unset;
   cursor: pointer;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 
 *,
@@ -74,14 +75,3 @@ a {
   /* Don't know how to pass through svgr yet - needs to be on children not svg tag */
   vector-effect: non-scaling-stroke;
 }
-
-@keyframes rotate {
-  0% {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-  100% {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
-}
-
-/* .rotate */

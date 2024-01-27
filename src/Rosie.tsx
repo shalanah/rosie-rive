@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import {
   useRive,
   Layout,
@@ -6,38 +6,34 @@ import {
   Alignment,
   EventType,
   EventCallback,
-  // useStateMachineInput, // TODO: Learn how to use this better... maybe don't need to listen to events?
 } from "@rive-app/react-canvas-lite";
 import { useState } from "react";
-import audioWalking from "./assets/loop_mixdown8.mp3";
 import { useStateContext } from "./hooks/useStateContext";
 import { usePrevious } from "./hooks/usePrevious";
-import audioBg from "./assets/Mellow-Mind_Looping.mp3";
+
+const src = "assets/rosie(29).riv";
+const stateMachines = "State Machine 1";
+const artboard = "rosie animation blue";
+const layout = new Layout({ fit: Fit.Contain, alignment: Alignment.Center });
 
 export const Rosie = () => {
-  const { replay, sound, setLoaded } = useStateContext();
+  const { replay, sound, setLoaded, beepBeepLoaded, bgLoaded, walkingLoaded } =
+    useStateContext();
   const prevReplay = usePrevious(replay);
+  const [hover, setHover] = useState(false);
+  const [animation, setAnimation] = useState(["start"]);
+  const [clicked, setClicked] = useState(false);
 
   const { rive, RiveComponent } = useRive({
-    src: "assets/rosie-18.riv",
-    stateMachines: "State Machine 1",
-    artboard: "rosie animation blue",
-    layout: new Layout({ fit: Fit.Contain, alignment: Alignment.Center }),
+    src,
+    stateMachines,
+    artboard,
+    layout,
     autoplay: false,
     onLoad: () => {
       setLoaded(true);
     },
   });
-
-  const audioWalkingLoaded = useMemo(() => {
-    return new Audio(audioWalking);
-  }, []);
-  const audioBgLoaded = useMemo(() => {
-    return new Audio(audioBg);
-  }, []);
-
-  const [hover, setHover] = useState(false);
-  const [animation, setAnimation] = useState(["start"]);
 
   // Event listeners
   useEffect(() => {
@@ -52,13 +48,13 @@ export const Rosie = () => {
           const { name } = event.data as { name: string };
           if (name === "Event Exit") setHover(false);
           if (name === "Event Enter") setHover(true);
+          if (name === "Event Click") setClicked(true);
           return;
         }
         default:
           return;
       }
     };
-
     if (rive) {
       rive.on(EventType.RiveEvent, riveEventHandler);
       rive.on(EventType.StateChange, riveEventHandler);
@@ -68,40 +64,60 @@ export const Rosie = () => {
     };
   }, [rive]);
 
-  // Mouse cursor
+  // 🖱️ Cursor
   useEffect(() => {
     const isHovering = hover && animation.includes("interactive");
     document.body.classList[isHovering ? "add" : "remove"]("cursor-pointer");
   }, [hover, animation]);
 
-  // Toggling sound
+  // 🔊 Beep beep click
   useEffect(() => {
-    audioWalkingLoaded.volume = sound ? 1 : 0;
-    audioBgLoaded.volume = sound ? 0.15 : 0;
-  }, [sound, audioWalkingLoaded, audioBgLoaded]);
+    if (clicked && animation.includes("interactive")) {
+      if (beepBeepLoaded) {
+        beepBeepLoaded.currentTime = 0;
+        beepBeepLoaded.play();
+      }
+    }
+    if (clicked) setClicked(false); // no matter what reset clicked
+  }, [animation, beepBeepLoaded, clicked]);
 
-  // Background music
+  // 🔊 Volume + volume toggle
+  useEffect(() => {
+    if (walkingLoaded && bgLoaded && beepBeepLoaded) {
+      walkingLoaded.volume = sound ? 1 : 0;
+      bgLoaded.volume = sound ? 0.15 : 0;
+      beepBeepLoaded.volume = sound ? 1 : 0;
+    }
+  }, [sound, walkingLoaded, bgLoaded, beepBeepLoaded]);
+
+  // 🔊 Background
   useEffect(() => {
     // TODO: Repeat background music
     if (replay === 1 && prevReplay !== replay) {
-      audioBgLoaded.currentTime = 0;
-      audioBgLoaded.play();
-      audioBgLoaded.loop = true;
+      if (bgLoaded) {
+        bgLoaded.currentTime = 0;
+        bgLoaded.play();
+        bgLoaded.loop = true;
+      }
     }
-  }, [audioBgLoaded, replay, prevReplay]);
+  }, [bgLoaded, replay, prevReplay]);
 
-  // Replay
+  // 🏁 Start animation
   useEffect(() => {
     if (replay !== 0 && prevReplay !== replay && rive) {
+      // 🤖 enter
       rive.reset({
-        artboard: "rosie animation blue",
-        stateMachines: "State Machine 1",
+        artboard,
+        stateMachines,
         autoplay: true,
       });
       rive.play();
-      audioWalkingLoaded.currentTime = 0;
-      audioWalkingLoaded.play();
+      // 🔊 entrance sound
+      if (walkingLoaded) {
+        walkingLoaded.currentTime = 0;
+        walkingLoaded.play();
+      }
     }
-  }, [rive, replay, audioWalkingLoaded, sound, prevReplay]);
+  }, [rive, replay, walkingLoaded, sound, prevReplay]);
   return <RiveComponent />;
 };

@@ -5,9 +5,9 @@ import VolumeOnIcon from "./assets/volume-2.svg?react";
 import VolumeOffIcon from "./assets/volume-x.svg?react";
 import PlayIcon from "./assets/play.svg?react";
 import PlayFillIcon from "./assets/play-fill.svg?react";
-// import LoadingIcon from "./assets/loader.svg?react";
 import { useStateContext } from "./hooks/useStateContext";
 import styled from "styled-components";
+import { useEffect } from "react";
 
 const Button = styled.button`
   transition: 0.1s transform;
@@ -137,12 +137,20 @@ export function App() {
     );
     playText = "Replay animation";
   }
+
+  // active styles safari
+  useEffect(() => {
+    document.addEventListener("touchstart", function () {}, true);
+  }, []);
   return (
     <div className="pos-full pos-up-left">
       <Rosie />
       <StartButton
-        style={{ opacity: loaded && replay === 0 ? 1 : 0 }}
-        onClick={loaded ? onReplay : undefined}
+        style={{
+          opacity: loaded && replay === 0 ? 1 : 0,
+          pointerEvents: loaded && replay === 0 ? "auto" : "none",
+        }}
+        onClick={onReplay}
         className="pos-center"
       >
         <span className="sr-only">Play animation</span>
