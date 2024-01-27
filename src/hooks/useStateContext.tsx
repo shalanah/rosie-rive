@@ -5,18 +5,18 @@ import React, {
   ReactNode,
   useEffect,
 } from "react";
-import audioWalking from "../assets/walking_mixdown8.mp3";
-import audioBeepBeep from "../assets/beep-beep_mixdown.mp3";
-import audioBg from "../assets/Mellow-Mind_Looping.mp3";
+import mp3Walking from "../assets/walking_mixdown8.mp3";
+import mp3Beep from "../assets/beep-beep_mixdown.mp3";
+import mp3Bg from "../assets/Mellow-Mind_Looping.mp3";
 
 interface StateContextInterface {
   playing: boolean;
   sound: boolean;
   replay: number;
   loaded: boolean;
-  walkingLoaded: HTMLAudioElement | null;
-  bgLoaded: HTMLAudioElement | null;
-  beepBeepLoaded: HTMLAudioElement | null;
+  audioWalking: HTMLAudioElement | null;
+  audioBg: HTMLAudioElement | null;
+  audioBeep: HTMLAudioElement | null;
   setPlaying: React.Dispatch<React.SetStateAction<boolean>>;
   setSound: React.Dispatch<React.SetStateAction<boolean>>;
   setReplay: React.Dispatch<React.SetStateAction<number>>;
@@ -31,46 +31,38 @@ export const StateContextProvider = ({ children }: { children: ReactNode }) => {
   const [sound, setSound] = useState(true);
   const [replay, setReplay] = useState(0);
   const [loaded, setLoaded] = useState(false);
-  const [soundLoaded, setSoundLoaded] = useState([false, false, false]);
+  const [soundLoaded, setAudioLoaded] = useState([false, false, false]);
 
   // TODO: Rename
-  const [walkingLoaded, setWalkingLoaded] = useState<HTMLAudioElement | null>(
-    () => new Audio(audioWalking)
+  const [audioWalking, setAudioWalking] = useState<HTMLAudioElement | null>(
+    () => new Audio(mp3Walking)
   );
-  const [bgLoaded, setBgLoaded] = useState<HTMLAudioElement | null>(
-    () => new Audio(audioBg)
+  const [audioBg, setAudioBg] = useState<HTMLAudioElement | null>(
+    () => new Audio(mp3Bg)
   );
-  const [beepBeepLoaded, setBeepBeepLoaded] = useState<HTMLAudioElement | null>(
-    () => new Audio(audioBeepBeep)
+  const [audioBeep, setAudioBeep] = useState<HTMLAudioElement | null>(
+    () => new Audio(mp3Beep)
   );
 
   useEffect(() => {
-    const beepBeepCanPlay = () => {
-      setSoundLoaded((prev) => [true, prev[1], prev[2]]);
-    };
-    const bgCanPlay = () => {
-      setSoundLoaded((prev) => [prev[0], true, prev[2]]);
-    };
-    const walkingCanPlay = () => {
-      setSoundLoaded((prev) => [prev[0], prev[1], true]);
-    };
-    if (beepBeepLoaded && bgLoaded && walkingLoaded) {
-      beepBeepLoaded.addEventListener("canplaythrough", beepBeepCanPlay);
-      bgLoaded.addEventListener("canplaythrough", bgCanPlay);
-      walkingLoaded.addEventListener("canplaythrough", walkingCanPlay);
-    }
+    const beepBeepCanPlay = () =>
+      setAudioLoaded((prev) => [true, prev[1], prev[2]]);
+    const bgCanPlay = () => setAudioLoaded((prev) => [prev[0], true, prev[2]]);
+    const walkingCanPlay = () =>
+      setAudioLoaded((prev) => [prev[0], prev[1], true]);
+    audioBeep?.addEventListener("canplaythrough", beepBeepCanPlay);
+    audioBg?.addEventListener("canplaythrough", bgCanPlay);
+    audioWalking?.addEventListener("canplaythrough", walkingCanPlay);
     return () => {
-      if (beepBeepLoaded && bgLoaded && walkingLoaded) {
-        beepBeepLoaded.removeEventListener("canplaythrough", beepBeepCanPlay);
-        bgLoaded.removeEventListener("canplaythrough", bgCanPlay);
-        walkingLoaded.removeEventListener("canplaythrough", walkingCanPlay);
-      }
-      setSoundLoaded([false, false, false]);
-      setWalkingLoaded(null);
-      setBgLoaded(null);
-      setBeepBeepLoaded(null);
+      audioBeep?.removeEventListener("canplaythrough", beepBeepCanPlay);
+      audioBg?.removeEventListener("canplaythrough", bgCanPlay);
+      audioWalking?.removeEventListener("canplaythrough", walkingCanPlay);
+      setAudioLoaded([false, false, false]);
+      setAudioWalking(null);
+      setAudioBg(null);
+      setAudioBeep(null);
     };
-  }, [beepBeepLoaded, bgLoaded, walkingLoaded]);
+  }, [audioBeep, audioBg, audioWalking]);
 
   return (
     <StateContext.Provider
@@ -79,9 +71,9 @@ export const StateContextProvider = ({ children }: { children: ReactNode }) => {
         sound,
         replay,
         loaded: loaded && soundLoaded.every((v) => v),
-        walkingLoaded,
-        bgLoaded,
-        beepBeepLoaded,
+        audioWalking,
+        audioBg,
+        audioBeep,
         setPlaying,
         setSound,
         setReplay,

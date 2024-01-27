@@ -11,13 +11,13 @@ import { useState } from "react";
 import { useStateContext } from "./hooks/useStateContext";
 import { usePrevious } from "./hooks/usePrevious";
 
-const src = "assets/rosie(29).riv";
+const src = "assets/rosie(37).riv";
 const stateMachines = "State Machine 1";
 const artboard = "rosie animation blue";
 const layout = new Layout({ fit: Fit.Contain, alignment: Alignment.Center });
 
 export const Rosie = () => {
-  const { replay, sound, setLoaded, beepBeepLoaded, bgLoaded, walkingLoaded } =
+  const { replay, sound, setLoaded, audioBeep, audioBg, audioWalking } =
     useStateContext();
   const prevReplay = usePrevious(replay);
   const [hover, setHover] = useState(false);
@@ -37,34 +37,24 @@ export const Rosie = () => {
 
   // Event listeners
   useEffect(() => {
-    // TODO: Split into 2 event listeners
-    const riveEventHandler: EventCallback = (event) => {
-      switch (event.type) {
-        case EventType.StateChange: {
-          const data = event.data as [string];
-          setAnimation(data);
-          return;
-        }
-        case EventType.RiveEvent: {
-          const { name } = event.data as { name: string };
-          switch (name) {
-            case "Event Exit":
-              return setHover(false);
-            case "Event Enter":
-              return setHover(true);
-            case "Event Click":
-              return setClicked(true);
-            default:
-              return;
-          }
-        }
+    const onRiveEvent: EventCallback = (event) => {
+      switch (((event?.data as { name: string })?.name as string) || "") {
+        case "Event Exit":
+          return setHover(false);
+        case "Event Enter":
+          return setHover(true);
+        case "Event Click":
+          return setClicked(true);
         default:
           return;
       }
     };
+    const onRiveStateChange: EventCallback = (event) => {
+      return setAnimation(event.data as [string]);
+    };
     if (rive) {
-      rive.on(EventType.RiveEvent, riveEventHandler);
-      rive.on(EventType.StateChange, riveEventHandler);
+      rive.on(EventType.RiveEvent, onRiveEvent);
+      rive.on(EventType.StateChange, onRiveStateChange);
     }
     return () => {
       if (rive) rive.removeAllRiveEventListeners();
@@ -80,34 +70,34 @@ export const Rosie = () => {
   // 🔊 Beep beep click
   useEffect(() => {
     if (clicked && animation.includes("interactive")) {
-      if (beepBeepLoaded) {
-        beepBeepLoaded.currentTime = 0;
-        beepBeepLoaded.play();
+      if (audioBeep) {
+        audioBeep.currentTime = 0;
+        audioBeep.play();
       }
     }
     if (clicked) setClicked(false); // no matter what reset clicked
-  }, [animation, beepBeepLoaded, clicked]);
+  }, [animation, audioBeep, clicked]);
 
   // 🔊 Volume + volume toggle
   useEffect(() => {
-    if (walkingLoaded && bgLoaded && beepBeepLoaded) {
-      walkingLoaded.volume = sound ? 1 : 0;
-      bgLoaded.volume = sound ? 0.15 : 0;
-      beepBeepLoaded.volume = sound ? 1 : 0;
+    if (audioWalking && audioBg && audioBeep) {
+      audioWalking.volume = sound ? 1 : 0;
+      audioBg.volume = sound ? 0.15 : 0;
+      audioBeep.volume = sound ? 1 : 0;
     }
-  }, [sound, walkingLoaded, bgLoaded, beepBeepLoaded]);
+  }, [sound, audioWalking, audioBg, audioBeep]);
 
   // 🔊 Background
   useEffect(() => {
     // TODO: Repeat background music
     if (replay === 1 && prevReplay !== replay) {
-      if (bgLoaded) {
-        bgLoaded.currentTime = 0;
-        bgLoaded.play();
-        bgLoaded.loop = true;
+      if (audioBg) {
+        audioBg.currentTime = 0;
+        audioBg.play();
+        audioBg.loop = true;
       }
     }
-  }, [bgLoaded, replay, prevReplay]);
+  }, [audioBg, replay, prevReplay]);
 
   // 🏁 Start animation
   useEffect(() => {
@@ -120,11 +110,11 @@ export const Rosie = () => {
       });
       rive.play();
       // 🔊 entrance sound
-      if (walkingLoaded) {
-        walkingLoaded.currentTime = 0;
-        walkingLoaded.play();
+      if (audioWalking) {
+        audioWalking.currentTime = 0;
+        audioWalking.play();
       }
     }
-  }, [rive, replay, walkingLoaded, sound, prevReplay]);
+  }, [rive, replay, audioWalking, sound, prevReplay]);
   return <RiveComponent />;
 };
