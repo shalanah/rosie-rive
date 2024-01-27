@@ -17,6 +17,7 @@ html,
   margin: 0;
   padding: 0;
   line-height: 1.2;
+  overflow: hidden;
 }
 #root {
   display: flex;
@@ -68,3 +69,19 @@ a {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.ve * {
+  /* Don't know how to pass through svgr yet - needs to be on children not svg tag */
+  vector-effect: non-scaling-stroke;
+}
+
+@keyframes rotate {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* .rotate */

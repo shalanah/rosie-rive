@@ -4,9 +4,11 @@ interface StateContextInterface {
   playing: boolean;
   sound: boolean;
   replay: number;
+  loaded: boolean;
   setPlaying: React.Dispatch<React.SetStateAction<boolean>>;
   setSound: React.Dispatch<React.SetStateAction<boolean>>;
   setReplay: React.Dispatch<React.SetStateAction<number>>;
+  setLoaded: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 // Game state... could probably be broken out into smaller files / hooks
@@ -16,16 +18,19 @@ export const StateContextProvider = ({ children }: { children: ReactNode }) => {
   const [playing, setPlaying] = useState(false);
   const [sound, setSound] = useState(true);
   const [replay, setReplay] = useState(0);
+  const [loaded, setLoaded] = useState(false);
 
   return (
     <StateContext.Provider
       value={{
         playing,
-        setPlaying,
         sound,
-        setSound,
         replay,
+        loaded,
+        setPlaying,
+        setSound,
         setReplay,
+        setLoaded,
       }}
     >
       {children}

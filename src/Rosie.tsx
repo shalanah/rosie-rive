@@ -15,12 +15,11 @@ import { usePrevious } from "./hooks/usePrevious";
 import audioBg from "./assets/Mellow-Mind_Looping.mp3";
 
 export const Rosie = () => {
-  const { replay, sound } = useStateContext();
+  const { replay, sound, setLoaded } = useStateContext();
   const prevReplay = usePrevious(replay);
 
-  const [, setLoaded] = useState(false);
   const { rive, RiveComponent } = useRive({
-    src: "assets/rosie-14.riv",
+    src: "assets/rosie-18.riv",
     stateMachines: "State Machine 1",
     artboard: "rosie animation blue",
     layout: new Layout({ fit: Fit.Contain, alignment: Alignment.Center }),
@@ -77,8 +76,8 @@ export const Rosie = () => {
 
   // Toggling sound
   useEffect(() => {
-    audioWalkingLoaded.volume = sound ? 0.7 : 0;
-    audioBgLoaded.volume = sound ? 0.075 : 0;
+    audioWalkingLoaded.volume = sound ? 1 : 0;
+    audioBgLoaded.volume = sound ? 0.15 : 0;
   }, [sound, audioWalkingLoaded, audioBgLoaded]);
 
   // Background music
@@ -87,6 +86,7 @@ export const Rosie = () => {
     if (replay === 1 && prevReplay !== replay) {
       audioBgLoaded.currentTime = 0;
       audioBgLoaded.play();
+      audioBgLoaded.loop = true;
     }
   }, [audioBgLoaded, replay, prevReplay]);
 

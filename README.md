@@ -2,6 +2,18 @@
 
 A for-fun animation study of Rosie the Robot using Rive, no affiliation with the The Jetsons.
 
+## Screenshots / Video
+
+## Credits
+
+- Icons: [Feather Icons](https://feathericons.com/)
+- Background song: ["Mellow Mind"](https://soundimage.org/jazz-big-band/) by Eric Matyas
+
+## Inspiration footage / images
+
+- Video: [TV's Saturday Morning Cartoon Legacy: The Jetsons (Rosey: head of the household)](https://youtu.be/1pphyvgd7-k?si=ky0UGXM_ZxHiEUxG&t=68)
+-
+
 ## Running
 
 - Use version of node in **.nvmrc** file

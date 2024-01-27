@@ -5,6 +5,7 @@ import VolumeOnIcon from "./assets/volume-2.svg?react";
 import VolumeOffIcon from "./assets/volume-x.svg?react";
 import PlayIcon from "./assets/play.svg?react";
 import PlayFillIcon from "./assets/play-fill.svg?react";
+// import LoadingIcon from "./assets/loader.svg?react";
 import { useStateContext } from "./hooks/useStateContext";
 import styled from "styled-components";
 
@@ -26,10 +27,6 @@ const Button = styled.button`
   &:active {
     transform: scale(1); // gives a nice bouncing effect
   }
-  svg * {
-    /* Don't know how to pass through svgr yet - needs to be on children not svg tag */
-    vector-effect: non-scaling-stroke;
-  }
 `;
 
 const StartButton = styled.button`
@@ -40,10 +37,6 @@ const StartButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  svg * {
-    /* Don't know how to pass through svgr yet - needs to be on children not svg tag */
-    vector-effect: non-scaling-stroke;
-  }
   &:hover,
   &:focus-visible {
     &:after {
@@ -97,7 +90,7 @@ const StartButton = styled.button`
 `;
 
 const Footer = styled.footer`
-  line-height: 1;
+  line-height: 1.5;
   position: absolute;
   left: 15px;
   bottom: 15px;
@@ -118,7 +111,7 @@ const Nav = styled.nav`
 const strokeWidth = 2.75;
 
 export function App() {
-  const { setReplay, sound, setSound, replay } = useStateContext();
+  const { setReplay, sound, setSound, replay, loaded } = useStateContext();
   const onReplay = () => setReplay((v) => ++v);
   const onToggleSound = () => setSound(!sound);
 
@@ -147,18 +140,22 @@ export function App() {
   return (
     <div className="pos-full pos-up-left">
       <Rosie />
-      {replay === 0 && (
-        <StartButton onClick={onReplay} className="pos-center">
-          <span className="sr-only">Play animation</span>
-          <PlayFillIcon
-            width={"60%"}
-            height={"60%"}
-            className="pos-center"
-            style={{ marginLeft: "3%" }}
-            strokeWidth={10}
-          />
-        </StartButton>
-      )}
+      <StartButton
+        style={{ opacity: loaded && replay === 0 ? 1 : 0 }}
+        onClick={loaded ? onReplay : undefined}
+        className="pos-center"
+      >
+        <span className="sr-only">Play animation</span>
+        <PlayFillIcon
+          focusable="false"
+          aria-hidden="true"
+          width={"60%"}
+          height={"60%"}
+          className="pos-center ve"
+          style={{ marginLeft: "3%" }}
+          strokeWidth={10}
+        />
+      </StartButton>
       <Nav>
         <Button onClick={onReplay}>
           <span className="sr-only">{playText}</span>
@@ -168,6 +165,7 @@ export function App() {
           <span className="sr-only">Toggle sound {sound ? "off" : "on"}</span>
           {sound ? (
             <VolumeOnIcon
+              className="ve"
               focusable="false"
               aria-hidden="true"
               width={32}
@@ -176,6 +174,7 @@ export function App() {
             />
           ) : (
             <VolumeOffIcon
+              className="ve"
               focusable="false"
               aria-hidden="true"
               width={32}
@@ -194,6 +193,7 @@ export function App() {
         >
           <span className="sr-only">Github - Rosie Rive</span>
           <GithubIcon
+            className="ve"
             focusable="false"
             aria-hidden="true"
             width={30}
@@ -201,7 +201,23 @@ export function App() {
             strokeWidth={strokeWidth}
           />
         </Button>
-        Study of Rosie, not affiliated with The Jetsons
+        <div>
+          Animation study of Rosie by Shalanah Dawson, not affiliated with The
+          Jetsons.
+          <br />
+          <span style={{ marginLeft: "-.6ch" }}>"</span>
+          <a
+            href={"https://soundimage.org/jazz-big-band/"}
+            target="_blank"
+            style={{
+              textDecoration: "underline",
+              textUnderlineOffset: "3px",
+            }}
+          >
+            Mellow Mind
+          </a>
+          " music by Eric Matyas, www.soundimage.org
+        </div>
       </Footer>
     </div>
   );
