@@ -37,6 +37,7 @@ export const Rosie = () => {
 
   // Event listeners
   useEffect(() => {
+    // TODO: Split into 2 event listeners
     const riveEventHandler: EventCallback = (event) => {
       switch (event.type) {
         case EventType.StateChange: {
@@ -46,10 +47,16 @@ export const Rosie = () => {
         }
         case EventType.RiveEvent: {
           const { name } = event.data as { name: string };
-          if (name === "Event Exit") setHover(false);
-          if (name === "Event Enter") setHover(true);
-          if (name === "Event Click") setClicked(true);
-          return;
+          switch (name) {
+            case "Event Exit":
+              return setHover(false);
+            case "Event Enter":
+              return setHover(true);
+            case "Event Click":
+              return setClicked(true);
+            default:
+              return;
+          }
         }
         default:
           return;
