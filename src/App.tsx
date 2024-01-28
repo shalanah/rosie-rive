@@ -4,7 +4,7 @@ import RestartIcon from "./assets/rotate-ccw.svg?react";
 import VolumeOnIcon from "./assets/volume-2.svg?react";
 import VolumeOffIcon from "./assets/volume-x.svg?react";
 import PlayIcon from "./assets/play.svg?react";
-// import PlayFillIcon from "./assets/play-fill.svg?react";
+import PlayFillIcon from "./assets/play-fill.svg?react";
 import { useStateContext } from "./hooks/useStateContext";
 import styled from "styled-components";
 import { useEffect } from "react";
@@ -144,8 +144,9 @@ export function App() {
       <div className="pos-center">
         loaded {loaded ? "true" : "false"}, replay {replay}
       </div>
-      {/* <StartButton
+      <StartButton
         style={{
+          display: "none",
           opacity: loaded && replay === 0 ? 1 : 0,
           pointerEvents: loaded && replay === 0 ? "auto" : "none",
         }}
@@ -162,7 +163,7 @@ export function App() {
           style={{ marginLeft: "3%" }}
           strokeWidth={10}
         />
-      </StartButton> */}
+      </StartButton>
       <Nav>
         <Button onClick={onReplay}>
           {replay > 0 ? (
