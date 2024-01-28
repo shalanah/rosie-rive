@@ -141,7 +141,10 @@ export function App() {
   return (
     <div className="pos-full pos-up-left">
       <Rosie />
-      <StartButton
+      <div className="pos-center">
+        loaded {loaded ? "true" : "false"}, replay {replay}
+      </div>
+      {/* <StartButton
         style={{
           opacity: loaded && replay === 0 ? 1 : 0,
           pointerEvents: loaded && replay === 0 ? "auto" : "none",
@@ -159,7 +162,7 @@ export function App() {
           style={{ marginLeft: "3%" }}
           strokeWidth={10}
         />
-      </StartButton>
+      </StartButton> */}
       <Nav>
         <Button onClick={onReplay}>
           {replay > 0 ? (
