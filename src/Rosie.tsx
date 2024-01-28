@@ -69,11 +69,9 @@ export const Rosie = () => {
 
   // 🔊 Beep beep click
   useEffect(() => {
-    if (clicked && animation.includes("interactive")) {
-      if (audioBeep) {
-        audioBeep.currentTime = 0;
-        audioBeep.play();
-      }
+    if (clicked && animation.includes("interactive") && audioBeep) {
+      audioBeep.currentTime = 0;
+      audioBeep.play();
     }
     if (clicked) setClicked(false); // no matter what reset clicked
   }, [animation, audioBeep, clicked]);
@@ -89,19 +87,16 @@ export const Rosie = () => {
 
   // 🔊 Background
   useEffect(() => {
-    // TODO: Repeat background music
-    if (replay === 1 && prevReplay !== replay) {
-      if (audioBg) {
-        audioBg.currentTime = 0;
-        audioBg.play();
-        audioBg.loop = true;
-      }
+    if (replay === 1 && prevReplay !== replay && audioBg) {
+      audioBg.currentTime = 0;
+      audioBg.play();
+      audioBg.loop = true;
     }
   }, [audioBg, replay, prevReplay]);
 
   // 🏁 Start animation
   useEffect(() => {
-    if (replay !== 0 && prevReplay !== replay && rive) {
+    if (replay !== 0 && prevReplay !== replay && rive && audioWalking) {
       // 🤖 enter
       rive.reset({
         artboard,
@@ -110,10 +105,8 @@ export const Rosie = () => {
       });
       rive.play();
       // 🔊 entrance sound
-      if (audioWalking) {
-        audioWalking.currentTime = 0;
-        audioWalking.play();
-      }
+      audioWalking.currentTime = 0;
+      audioWalking.play();
     }
   }, [rive, replay, audioWalking, sound, prevReplay]);
   return <RiveComponent />;
