@@ -22,7 +22,7 @@ const Button = styled.button`
     outline: 2px dashed #000;
     outline-offset: 2px;
   }
-  @media (hover: none) {
+  @media (hover: hover) {
     &:focus-visible {
       transform: scale(1.1);
       outline: 2px dashed #000;
@@ -42,6 +42,20 @@ const StartButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  @media (hover: none) {
+    /* Add highlight ring to mobile since hover doesn't show up */
+    &:after {
+      transform: scale(1.05);
+    }
+    svg {
+      transform: translate(-50%, -50%) scale(1.05);
+    }
+    &:before {
+      opacity: 0.2;
+      transform: scale(1.3);
+    }
+  }
+
   &:hover,
   &:focus-visible {
     &:after {
@@ -119,30 +133,6 @@ export function App() {
   const { setReplay, sound, setSound, replay, loaded } = useStateContext();
   const onReplay = () => setReplay((v) => ++v);
   const onToggleSound = () => setSound(!sound);
-
-  let playIcon = (
-    <PlayIcon
-      focusable="false"
-      aria-hidden="true"
-      width={24}
-      height={24}
-      strokeWidth={strokeWidth}
-    />
-  );
-  let playText = "Play animation";
-  if (replay > 0) {
-    playIcon = (
-      <RestartIcon
-        focusable="false"
-        aria-hidden="true"
-        width={24}
-        height={24}
-        strokeWidth={strokeWidth}
-      />
-    );
-    playText = "Replay animation";
-  }
-
   // active styles safari
   useEffect(() => {
     document.addEventListener("touchstart", function () {}, true);
@@ -171,8 +161,26 @@ export function App() {
       </StartButton>
       <Nav>
         <Button onClick={onReplay}>
-          <span className="sr-only">{playText}</span>
-          {playIcon}
+          {replay > 0 ? (
+            <RestartIcon
+              focusable="false"
+              aria-hidden="true"
+              width={24}
+              height={24}
+              strokeWidth={strokeWidth}
+            />
+          ) : (
+            <PlayIcon
+              focusable="false"
+              aria-hidden="true"
+              width={24}
+              height={24}
+              strokeWidth={strokeWidth}
+            />
+          )}
+          <span className="sr-only">
+            {replay > 0 ? "Replay animation" : "Play animation"}
+          </span>
         </Button>
         <Button onClick={onToggleSound}>
           <span className="sr-only">Toggle sound {sound ? "off" : "on"}</span>

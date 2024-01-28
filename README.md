@@ -1,26 +1,29 @@
 # Rosie
 
-A for-fun animation study of Rosie the Robot using Rive, no affiliation with the The Jetsons.
+A animation study of Rosie the Robot using Rive, no affiliation with the The Jetsons. This is a for-fun fan project not for profit.
 
 ## Screenshots / Video
 
-## Credits
+## Credits / tech / apps used
 
-- Icons: [Feather Icons](https://feathericons.com/)
-- Background song: ["Mellow Mind"](https://soundimage.org/jazz-big-band/) by Eric Matyas
+- [Feather Icons](https://feathericons.com/)
+- ["Mellow Mind" by Eric Matyas](https://soundimage.org/jazz-big-band/) by Eric Matyas
+- [Adobe Illustrator](https://www.adobe.com/products/illustrator.html)
+- [Adobe Audition](https://www.adobe.com/products/audition.html)
+- [Rive](https://rive.app/)
+- [Vite](https://vitejs.dev/)
+- [React](https://reactjs.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
 
-## Inspiration footage / images
-
-- Video: [TV's Saturday Morning Cartoon Legacy: The Jetsons (Rosey: head of the household)](https://youtu.be/1pphyvgd7-k?si=ky0UGXM_ZxHiEUxG&t=68)
--
-
-## Running
+## Running locally
 
 - Use version of node in **.nvmrc** file
 - `npm install` or `yarn install`
 - `npm run dev` or `yarn dev`
 
-### Vite Tips (from Vite installation)
+===
+
+### Vite Installation Notes
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
