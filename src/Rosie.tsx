@@ -10,6 +10,7 @@ import {
 import { useState } from "react";
 import { useStateContext } from "./hooks/useStateContext";
 import { usePrevious } from "./hooks/usePrevious";
+import { useVisibilityChange } from "@uidotdev/usehooks";
 
 const src = "assets/rosie (63).riv";
 const stateMachines = "State Machine 1";
@@ -23,6 +24,7 @@ export const Rosie = () => {
   const [hover, setHover] = useState(false);
   const [animation, setAnimation] = useState(["start"]);
   const [clicked, setClicked] = useState(false);
+  const documentVisible = useVisibilityChange();
 
   const { rive, RiveComponent } = useRive({
     src,
@@ -88,13 +90,19 @@ export const Rosie = () => {
   }, [sound, audioWalking, audioBg, audioBeep]);
 
   // 🔊 Background
+  const clickedStart = replay !== 0;
   useEffect(() => {
-    if (replay === 1 && prevReplay !== replay && audioBg) {
+    // Start background music
+    if (clickedStart && audioBg) {
       audioBg.currentTime = 0;
       audioBg.play();
       audioBg.loop = true;
     }
-  }, [audioBg, replay, prevReplay]);
+  }, [audioBg, clickedStart]);
+  useEffect(() => {
+    // Pause audio when tab is not visible
+    if (clickedStart) audioBg?.[documentVisible ? "play" : "pause"]();
+  }, [documentVisible, audioBg, clickedStart]);
 
   // 🏁 Start animation
   useEffect(() => {

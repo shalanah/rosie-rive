@@ -17,20 +17,20 @@ const Button = styled.button`
   align-items: center;
   justify-content: center;
   border-radius: 8px;
-  &:hover {
-    transform: scale(1.1);
-    outline: 2px dashed #000;
-    outline-offset: 2px;
-  }
   @media (hover: hover) {
+    &:hover {
+      transform: scale(1.1);
+      outline: 2px dashed #000;
+      outline-offset: 2px;
+    }
     &:focus-visible {
       transform: scale(1.1);
       outline: 2px dashed #000;
       outline-offset: 2px;
     }
-  }
-  &:active {
-    transform: scale(1); // gives a nice bouncing effect
+    &:active {
+      transform: scale(1); // gives a nice bouncing effect
+    }
   }
 `;
 
@@ -55,29 +55,30 @@ const StartButton = styled.button`
       transform: scale(1.3);
     }
   }
-
-  &:hover,
-  &:focus-visible {
-    &:after {
-      transform: scale(1.05);
+  @media (hover: hover) {
+    &:hover,
+    &:focus-visible {
+      &:after {
+        transform: scale(1.05);
+      }
+      svg {
+        transform: translate(-50%, -50%) scale(1.05);
+      }
+      &:before {
+        opacity: 0.2;
+        transform: scale(1.3);
+      }
     }
-    svg {
-      transform: translate(-50%, -50%) scale(1.05);
-    }
-    &:before {
-      opacity: 0.2;
-      transform: scale(1.3);
-    }
-  }
-  &:active {
-    &:after {
-      transform: scale(1);
-    }
-    &:before {
-      transform: scale(1.2);
-    }
-    svg {
-      transform: translate(-50%, -50%) scale(1);
+    &:active {
+      &:after {
+        transform: scale(1);
+      }
+      &:before {
+        transform: scale(1.2);
+      }
+      svg {
+        transform: translate(-50%, -50%) scale(1);
+      }
     }
   }
   &:before,
@@ -223,7 +224,7 @@ export function App() {
           />
         </Button>
         <div>
-          Study of Rosie by Shalanah Dawson, not affiliated with The Jetsons.
+          Study of Rosie, not affiliated with The Jetsons.
           <br />
           <span style={{ marginLeft: "-.6ch" }}>"</span>
           <a
