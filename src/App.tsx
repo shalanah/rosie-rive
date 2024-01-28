@@ -17,12 +17,17 @@ const Button = styled.button`
   align-items: center;
   justify-content: center;
   border-radius: 8px;
-  &:hover,
-  &:focus-visible {
-    /* filter: drop-shadow(0 0 3px #d0f4ff); */
+  &:hover {
     transform: scale(1.1);
     outline: 2px dashed #000;
     outline-offset: 2px;
+  }
+  @media (hover: none) {
+    &:focus-visible {
+      transform: scale(1.1);
+      outline: 2px dashed #000;
+      outline-offset: 2px;
+    }
   }
   &:active {
     transform: scale(1); // gives a nice bouncing effect
@@ -210,8 +215,7 @@ export function App() {
           />
         </Button>
         <div>
-          Animation study of Rosie by Shalanah Dawson, not affiliated with The
-          Jetsons.
+          Study of Rosie by Shalanah Dawson, not affiliated with The Jetsons.
           <br />
           <span style={{ marginLeft: "-.6ch" }}>"</span>
           <a
