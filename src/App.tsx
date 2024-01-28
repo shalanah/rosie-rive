@@ -4,7 +4,7 @@ import RestartIcon from "./assets/rotate-ccw.svg?react";
 import VolumeOnIcon from "./assets/volume-2.svg?react";
 import VolumeOffIcon from "./assets/volume-x.svg?react";
 import PlayIcon from "./assets/play.svg?react";
-import PlayFillIcon from "./assets/play-fill.svg?react";
+// import PlayFillIcon from "./assets/play-fill.svg?react";
 import { useStateContext } from "./hooks/useStateContext";
 import styled from "styled-components";
 import { useEffect } from "react";
