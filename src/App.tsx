@@ -42,6 +42,32 @@ const StartButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  &:before,
+  &:after,
+  svg {
+    transform-origin: center;
+    transition: 0.2s;
+  }
+  &:before,
+  &:after {
+    content: "";
+    z-index: -1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    left: 0;
+    top: 0;
+  }
+  &:before {
+    transform: scale(0.75);
+    background: #92eefc;
+    opacity: 0;
+  }
+  &:after {
+    background: #fff;
+    border: 5px solid #000;
+  }
   @media (hover: none) {
     /* Add highlight ring to mobile since hover doesn't show up */
     &:after {
@@ -80,32 +106,6 @@ const StartButton = styled.button`
         transform: translate(-50%, -50%) scale(1);
       }
     }
-  }
-  &:before,
-  &:after,
-  svg {
-    transform-origin: center;
-    transition: 0.2s;
-  }
-  &:before,
-  &:after {
-    content: "";
-    z-index: -1;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    left: 0;
-    top: 0;
-  }
-  &:before {
-    transform: scale(0.75);
-    background: #92eefc;
-    opacity: 0;
-  }
-  &:after {
-    background: #fff;
-    border: 5px solid #000;
   }
 `;
 
