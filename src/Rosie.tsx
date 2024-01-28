@@ -17,6 +17,7 @@ const stateMachines = "State Machine 1";
 const artboard = "rosie animation blue";
 const layout = new Layout({ fit: Fit.Contain, alignment: Alignment.Center });
 
+// TODO: move use effects into hooks?
 export const Rosie = () => {
   const { replay, sound, setLoaded, audioBeep, audioBg, audioWalking } =
     useStateContext();
@@ -96,7 +97,7 @@ export const Rosie = () => {
     // Start background music
     if (clickedStart && audioBg) {
       audioBg.currentTime = 0;
-      audioBg.volume = 0.15;
+      audioBg.volume = 0.25;
       audioBg.play();
       audioBg.loop = true;
     }

@@ -37,7 +37,7 @@ const Button = styled.button`
 const StartButton = styled.button`
   width: 30vmin;
   height: 30vmin;
-  z-index: 1;
+  z-index: 2;
   color: #000;
   display: flex;
   align-items: center;
@@ -68,7 +68,7 @@ const StartButton = styled.button`
     background: #fff;
     border: 5px solid #000;
   }
-  @media (hover: none) {
+  @media not (hover: hover) {
     /* Add highlight ring to mobile since hover doesn't show up */
     &:after {
       transform: scale(1.05);
@@ -226,7 +226,7 @@ export function App() {
         <div>
           Study of Rosie, not affiliated with The Jetsons.
           <br />
-          <span style={{ marginLeft: "-.6ch" }}>"</span>
+          <span style={{ marginLeft: "-.7ch" }}>"</span>
           <a
             href={"https://soundimage.org/jazz-big-band/"}
             target="_blank"
@@ -237,7 +237,7 @@ export function App() {
           >
             Mellow Mind
           </a>
-          " music by Eric Matyas, www.soundimage.org
+          " music by Eric Matyas, soundimage.org
         </div>
       </Footer>
     </div>
