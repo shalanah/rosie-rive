@@ -47,8 +47,8 @@ export const Rosie = () => {
           return setHover(true);
         case "Event Click":
           return setClicked(true);
-        // case "Event Click Anim End":
-        //   return setClicked(false);
+        // case "Event Click Anim End": // - not reliable yet
+        //   return setClicked((v) => --v);
         default:
           return;
       }
@@ -75,17 +75,18 @@ export const Rosie = () => {
   useEffect(() => {
     if (clicked && animation.includes("interactive") && audioBeep) {
       audioBeep.currentTime = 0;
+      audioBeep.volume = 1;
       audioBeep.play();
     }
     if (clicked) setClicked(false); // no matter what, reset clicked
   }, [animation, audioBeep, clicked]);
 
-  // 🔊 Volume + volume toggle
+  // 🔊 Volume + volume toggle - cannot set volume on iOS have to mute
   useEffect(() => {
     if (audioWalking && audioBg && audioBeep) {
-      audioWalking.volume = sound ? 1 : 0;
-      audioBg.volume = sound ? 0.15 : 0;
-      audioBeep.volume = sound ? 1 : 0;
+      audioWalking.muted = !sound;
+      audioBg.muted = !sound;
+      audioBeep.muted = !sound;
     }
   }, [sound, audioWalking, audioBg, audioBeep]);
 
@@ -95,6 +96,7 @@ export const Rosie = () => {
     // Start background music
     if (clickedStart && audioBg) {
       audioBg.currentTime = 0;
+      audioBg.volume = 0.15;
       audioBg.play();
       audioBg.loop = true;
     }
@@ -116,6 +118,7 @@ export const Rosie = () => {
       rive.play();
       // 🔊 entrance sound
       audioWalking.currentTime = 0;
+      audioWalking.volume = 1;
       audioWalking.play();
     }
   }, [rive, replay, audioWalking, sound, prevReplay]);

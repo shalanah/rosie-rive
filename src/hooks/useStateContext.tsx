@@ -33,7 +33,6 @@ export const StateContextProvider = ({ children }: { children: ReactNode }) => {
   const [loaded, setLoaded] = useState(false);
   const [soundLoaded, setAudioLoaded] = useState([false, false, false]);
 
-  // TODO: Rename
   const [audioWalking, setAudioWalking] = useState<HTMLAudioElement | null>(
     () => new Audio(mp3Walking)
   );
@@ -45,24 +44,29 @@ export const StateContextProvider = ({ children }: { children: ReactNode }) => {
   );
 
   useEffect(() => {
-    const beepBeepCanPlay = () =>
+    const beepCanPlay = () =>
       setAudioLoaded((prev) => [true, prev[1], prev[2]]);
     const bgCanPlay = () => setAudioLoaded((prev) => [prev[0], true, prev[2]]);
     const walkingCanPlay = () =>
       setAudioLoaded((prev) => [prev[0], prev[1], true]);
-    audioBeep?.addEventListener("canplaythrough", beepBeepCanPlay);
+    audioBeep?.addEventListener("canplaythrough", beepCanPlay);
     audioBg?.addEventListener("canplaythrough", bgCanPlay);
     audioWalking?.addEventListener("canplaythrough", walkingCanPlay);
     return () => {
-      audioBeep?.removeEventListener("canplaythrough", beepBeepCanPlay);
+      audioBeep?.removeEventListener("canplaythrough", beepCanPlay);
       audioBg?.removeEventListener("canplaythrough", bgCanPlay);
       audioWalking?.removeEventListener("canplaythrough", walkingCanPlay);
-      setAudioLoaded([false, false, false]);
+    };
+  }, [audioBeep, audioBg, audioWalking]);
+
+  useEffect(() => {
+    // cleanup audio
+    return () => {
       setAudioWalking(null);
       setAudioBg(null);
       setAudioBeep(null);
     };
-  }, [audioBeep, audioBg, audioWalking]);
+  }, []);
 
   return (
     <StateContext.Provider
