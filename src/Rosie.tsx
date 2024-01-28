@@ -11,7 +11,7 @@ import { useState } from "react";
 import { useStateContext } from "./hooks/useStateContext";
 import { usePrevious } from "./hooks/usePrevious";
 
-const src = "assets/rosie(37).riv";
+const src = "assets/rosie (53).riv";
 const stateMachines = "State Machine 1";
 const artboard = "rosie animation blue";
 const layout = new Layout({ fit: Fit.Contain, alignment: Alignment.Center });

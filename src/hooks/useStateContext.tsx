@@ -6,7 +6,7 @@ import React, {
   useEffect,
 } from "react";
 import mp3Walking from "../assets/walking_mixdown8.mp3";
-import mp3Beep from "../assets/beep-beep_mixdown.mp3";
+import mp3Beep from "../assets/beep-beep_mixdown2.mp3";
 import mp3Bg from "../assets/Mellow-Mind_Looping.mp3";
 
 interface StateContextInterface {
