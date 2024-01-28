@@ -11,7 +11,7 @@ import { useState } from "react";
 import { useStateContext } from "./hooks/useStateContext";
 import { usePrevious } from "./hooks/usePrevious";
 
-const src = "assets/rosie (53).riv";
+const src = "assets/rosie (63).riv";
 const stateMachines = "State Machine 1";
 const artboard = "rosie animation blue";
 const layout = new Layout({ fit: Fit.Contain, alignment: Alignment.Center });
@@ -45,6 +45,8 @@ export const Rosie = () => {
           return setHover(true);
         case "Event Click":
           return setClicked(true);
+        // case "Event Click Anim End":
+        //   return setClicked(false);
         default:
           return;
       }
@@ -73,7 +75,7 @@ export const Rosie = () => {
       audioBeep.currentTime = 0;
       audioBeep.play();
     }
-    if (clicked) setClicked(false); // no matter what reset clicked
+    if (clicked) setClicked(false); // no matter what, reset clicked
   }, [animation, audioBeep, clicked]);
 
   // 🔊 Volume + volume toggle
