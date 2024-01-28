@@ -33,6 +33,8 @@ export const StateContextProvider = ({ children }: { children: ReactNode }) => {
   const [loaded, setLoaded] = useState(false);
   const [soundLoaded, setAudioLoaded] = useState([false, false, false]);
 
+  alert(JSON.stringify({ loaded, soundLoaded }));
+
   const [audioWalking, setAudioWalking] = useState<HTMLAudioElement | null>(
     () => new Audio(mp3Walking)
   );
