@@ -141,12 +141,8 @@ export function App() {
   return (
     <div className="pos-full pos-up-left">
       <Rosie />
-      <div className="pos-center">
-        loaded {loaded ? "true" : "false"}, replay {replay}
-      </div>
       <StartButton
         style={{
-          display: "none",
           opacity: loaded && replay === 0 ? 1 : 0,
           pointerEvents: loaded && replay === 0 ? "auto" : "none",
         }}

@@ -8,7 +8,6 @@ import React, {
 import mp3Walking from "../assets/walking_mixdown8.mp3";
 import mp3Beep from "../assets/beep-beep_mixdown2.mp3";
 import mp3Bg from "../assets/Mellow-Mind_Looping.mp3";
-import Bowser from "bowser";
 
 interface StateContextInterface {
   playing: boolean;
@@ -27,10 +26,6 @@ interface StateContextInterface {
 // Game state... could probably be broken out into smaller files / hooks
 export const StateContext = createContext<StateContextInterface | null>(null);
 export const StateContextProvider = ({ children }: { children: ReactNode }) => {
-  const browser = Bowser.getParser(window.navigator.userAgent);
-  const platform = browser.getPlatform();
-  const iOSShite = platform.type !== "desktop" && platform.vendor === "Apple"; // iOS webkit is 💩
-
   // TODO: Maybe as a reducer instead?
   const [playing, setPlaying] = useState(false);
   const [sound, setSound] = useState(true);
@@ -49,8 +44,6 @@ export const StateContextProvider = ({ children }: { children: ReactNode }) => {
   );
 
   useEffect(() => {
-    // iOS not reliable with canplaythrough (especially iPhone) - not surprising because iOS webkit is 💩
-    // if (!iOSShite) {
     const beepCanPlay = () =>
       setAudioLoaded((prev) => [true, prev[1], prev[2]]);
     const bgCanPlay = () => setAudioLoaded((prev) => [prev[0], true, prev[2]]);
@@ -69,7 +62,7 @@ export const StateContextProvider = ({ children }: { children: ReactNode }) => {
       audioWalking?.removeEventListener("canplaythrough", walkingCanPlay);
     };
     // }
-  }, [audioBeep, audioBg, audioWalking, iOSShite]);
+  }, [audioBeep, audioBg, audioWalking]);
 
   useEffect(() => {
     // cleanup audio
