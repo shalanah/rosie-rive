@@ -2,13 +2,15 @@
 
 A animation study of Rosie the Robot using Rive, no affiliation with the The Jetsons. This is a for-fun fan project not for profit.
 
-## Screenshots / Video
+## Screenshots
 
 <div>
 <img style="float: left" src="/screenshots/1.png" height="414" />
 </div>
 
-https://github.com/shalanah/rosie-rive/raw/main/screenshots/video.mp4
+## Video
+
+https://github.com/shalanah/rosie-rive/blob/7575057a55248906248f0c7dde92166f9fade417/screenshots/video.mp4
 
 ## Credits / tech / apps used
 
