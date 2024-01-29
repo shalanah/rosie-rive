@@ -29,7 +29,6 @@ https://github.com/shalanah/rosie-rive/blob/7575057a55248906248f0c7dde92166f9fad
 - `npm install` or `yarn install`
 - `npm run dev` or `yarn dev`
 
-===
 
 ### Vite Installation Notes
 
