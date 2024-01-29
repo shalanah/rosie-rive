@@ -6,6 +6,7 @@ A animation study of Rosie the Robot using Rive, no affiliation with the The Jet
 
 <div>
 <img style="float: left" src="/screenshots/1.png" height="414" />
+<video style="float: left" src="/screenshots/video.mp4" height="414" />
 </div>
 
 ## Credits / tech / apps used
