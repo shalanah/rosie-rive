@@ -51,13 +51,14 @@ export const StateContextProvider = ({ children }: { children: ReactNode }) => {
     const bgCanPlay = () => setAudioLoaded((prev) => [prev[0], true, prev[2]]);
     const walkingCanPlay = () =>
       setAudioLoaded((prev) => [prev[0], prev[1], true]);
-    audioBeep?.addEventListener("canplaythrough", beepCanPlay);
-    audioBg?.addEventListener("canplaythrough", bgCanPlay);
-    audioWalking?.addEventListener("canplaythrough", walkingCanPlay);
+    // iOS doesn't work with canplaythrough - not surprising because iOS webkit a big 💩
+    audioBeep?.addEventListener("canplay", beepCanPlay);
+    audioBg?.addEventListener("canplay", bgCanPlay);
+    audioWalking?.addEventListener("canplay", walkingCanPlay);
     return () => {
-      audioBeep?.removeEventListener("canplaythrough", beepCanPlay);
-      audioBg?.removeEventListener("canplaythrough", bgCanPlay);
-      audioWalking?.removeEventListener("canplaythrough", walkingCanPlay);
+      audioBeep?.removeEventListener("canplay", beepCanPlay);
+      audioBg?.removeEventListener("canplay", bgCanPlay);
+      audioWalking?.removeEventListener("canplay", walkingCanPlay);
     };
   }, [audioBeep, audioBg, audioWalking]);
 
