@@ -4,6 +4,10 @@ A animation study of Rosie the Robot using Rive, no affiliation with the The Jet
 
 ## Screenshots / Video
 
+<div>
+<img style="float: left" src="/screenshots/1.png" height="414" />
+</div>
+
 ## Credits / tech / apps used
 
 - [Feather Icons](https://feathericons.com/)
