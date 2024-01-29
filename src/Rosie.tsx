@@ -73,8 +73,9 @@ export const Rosie = () => {
   // 🔊 Beep beep click
   useEffect(() => {
     if (clicked && animation.includes("interactive") && audioBeep) {
-      audioBeep.currentTime = 0;
       audioBeep.play();
+      audioBeep.volume = 1;
+      audioBeep.currentTime = 0;
     }
     if (clicked) setClicked(false); // no matter what, reset clicked
   }, [animation, audioBeep, clicked]);
@@ -115,12 +116,9 @@ export const Rosie = () => {
       });
       rive.play();
       // 🔊 entrance sound
-      setTimeout(() => {
-        audioWalking.currentTime = 0;
-        audioWalking.play();
-      }, 0);
-      // audioWalking.currentTime = 0;
-      // audioWalking.play();
+      audioWalking.play();
+      audioWalking.volume = 1;
+      audioWalking.currentTime = 0;
     }
   }, [rive, replay, audioWalking]);
   return <RiveComponent />;
