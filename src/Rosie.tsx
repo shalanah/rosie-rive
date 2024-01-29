@@ -73,7 +73,7 @@ export const Rosie = () => {
   // 🔊 Beep beep click
   useEffect(() => {
     if (clicked && animation.includes("interactive") && audioBeep) {
-      audioBeep.play();
+      audioBeep.play(); // do play first for iOS phones 💩
       audioBeep.volume = 1;
       audioBeep.currentTime = 0;
     }
@@ -94,9 +94,9 @@ export const Rosie = () => {
   useEffect(() => {
     // Start background music
     if (clickedStart && audioBg) {
+      audioBg.play(); // do play first for iOS phones 💩
       audioBg.currentTime = 0;
       audioBg.volume = 0.25;
-      audioBg.play();
       audioBg.loop = true;
     }
   }, [audioBg, clickedStart]);
@@ -116,7 +116,7 @@ export const Rosie = () => {
       });
       rive.play();
       // 🔊 entrance sound
-      audioWalking.play();
+      audioWalking.play(); // do play first for iOS phones 💩
       audioWalking.volume = 1;
       audioWalking.currentTime = 0;
     }
