@@ -15,7 +15,7 @@ https://github.com/shalanah/rosie-rive/assets/14183660/15f7db0f-e9d4-43d0-862e-7
 ## Credits / tech / apps used
 
 - [Feather Icons](https://feathericons.com/)
-- ["Mellow Mind" by Eric Matyas](https://soundimage.org/jazz-big-band/) by Eric Matyas
+- ["Mellow Mind"](https://soundimage.org/jazz-big-band/) by Eric Matyas
 - [Adobe Illustrator](https://www.adobe.com/products/illustrator.html)
 - [Adobe Audition](https://www.adobe.com/products/audition.html)
 - [Rive](https://rive.app/)
