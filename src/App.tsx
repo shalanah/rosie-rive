@@ -68,9 +68,9 @@ const StartButton = styled.button`
     background: #fff;
     border: 5px solid #000;
   }
-  /* @media not (hover: hover) { */
-  /* Add highlight ring to mobile since hover doesn't show up */
-  /* &:after {
+  @media not (hover: hover) {
+    /* Add highlight ring to mobile since hover doesn't show up */
+    &:after {
       transform: scale(1.05);
     }
     svg {
@@ -79,8 +79,8 @@ const StartButton = styled.button`
     &:before {
       opacity: 0.2;
       transform: scale(1.3);
-    } */
-  /* } */
+    }
+  }
   @media (hover: hover) {
     &:hover,
     &:focus-visible {
