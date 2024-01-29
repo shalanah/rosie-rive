@@ -1,6 +1,6 @@
 # Rosie
 
-A animation study of Rosie the Robot using Rive, no affiliation with the The Jetsons. This is a for-fun fan project not for profit.
+A animation study of Rosie the Robot using Rive, no affiliation with the The Jetsons. 
 
 ## Screenshots
 
