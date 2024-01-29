@@ -10,7 +10,7 @@ A animation study of Rosie the Robot using Rive, no affiliation with the The Jet
 
 ## Video
 
-https://github.com/shalanah/rosie-rive/blob/499ced51452310d99bdb6e37d2b81d816ef799ee/screenshots/video2.mp4
+https://github.com/shalanah/rosie-rive/assets/14183660/15f7db0f-e9d4-43d0-862e-7e9822e4e7d2
 
 ## Credits / tech / apps used
 
