@@ -10,8 +10,9 @@ import {
 import { useState } from "react";
 import { useStateContext } from "./hooks/useStateContext";
 import { useVisibilityChange } from "@uidotdev/usehooks";
+import rosieRive from "./assets/rosie (63).riv?arraybuffer";
 
-const src = "assets/rosie (63).riv";
+// const src = "assets/rosie (63).riv";
 const stateMachines = "State Machine 1";
 const artboard = "rosie animation blue";
 const layout = new Layout({ fit: Fit.Contain, alignment: Alignment.Center });
@@ -26,7 +27,7 @@ export const Rosie = () => {
   const documentVisible = useVisibilityChange();
 
   const { rive, RiveComponent } = useRive({
-    src,
+    buffer: rosieRive,
     stateMachines,
     artboard,
     layout,

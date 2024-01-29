@@ -2059,6 +2059,11 @@ uri-js@^4.2.2:
   dependencies:
     punycode "^2.1.0"
 
+vite-plugin-arraybuffer@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/vite-plugin-arraybuffer/-/vite-plugin-arraybuffer-0.0.2.tgz#3094b3691ecadfd2b12bb210d9a06e69c1056577"
+  integrity sha512-ibjyFobimOplfrKZFG7ecdLSp0L0eo6YOat9Nm5AQ95edq5bMt/hN0dx4oJifczdyQECSqg7R+j5IM2hsC9lvQ==
+
 vite-plugin-svgr@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/vite-plugin-svgr/-/vite-plugin-svgr-4.2.0.tgz#9f3bf5206b0ec510287e56d16f1915e729bb4e6b"
