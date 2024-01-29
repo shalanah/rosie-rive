@@ -146,13 +146,13 @@ export function App() {
           opacity: loaded && replay === 0 ? 1 : 0,
           pointerEvents: loaded && replay === 0 ? "auto" : "none",
         }}
-        onClick={onReplay}
+        onClick={loaded && replay === 0 ? onReplay : undefined}
         className="pos-center"
       >
         <span className="sr-only">Play animation</span>
         <PlayFillIcon
-          focusable="false"
-          aria-hidden="true"
+          focusable={"false"}
+          aria-hidden={"true"}
           width={"60%"}
           height={"60%"}
           className="pos-center ve"

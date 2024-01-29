@@ -9,7 +9,6 @@ import {
 } from "@rive-app/react-canvas-lite";
 import { useState } from "react";
 import { useStateContext } from "./hooks/useStateContext";
-import { usePrevious } from "./hooks/usePrevious";
 import { useVisibilityChange } from "@uidotdev/usehooks";
 
 const src = "assets/rosie (63).riv";
@@ -21,7 +20,6 @@ const layout = new Layout({ fit: Fit.Contain, alignment: Alignment.Center });
 export const Rosie = () => {
   const { replay, sound, setLoaded, audioBeep, audioBg, audioWalking } =
     useStateContext();
-  const prevReplay = usePrevious(replay);
   const [hover, setHover] = useState(false);
   const [animation, setAnimation] = useState(["start"]);
   const [clicked, setClicked] = useState(false);
@@ -76,7 +74,6 @@ export const Rosie = () => {
   useEffect(() => {
     if (clicked && animation.includes("interactive") && audioBeep) {
       audioBeep.currentTime = 0;
-      audioBeep.volume = 1;
       audioBeep.play();
     }
     if (clicked) setClicked(false); // no matter what, reset clicked
@@ -109,7 +106,7 @@ export const Rosie = () => {
 
   // 🏁 Start animation
   useEffect(() => {
-    if (replay !== 0 && prevReplay !== replay && rive && audioWalking) {
+    if (replay > 0 && rive && audioWalking) {
       // 🤖 enter
       rive.reset({
         artboard,
@@ -119,9 +116,8 @@ export const Rosie = () => {
       rive.play();
       // 🔊 entrance sound
       audioWalking.currentTime = 0;
-      audioWalking.volume = 1;
       audioWalking.play();
     }
-  }, [rive, replay, audioWalking, sound, prevReplay]);
+  }, [rive, replay, audioWalking]);
   return <RiveComponent />;
 };
