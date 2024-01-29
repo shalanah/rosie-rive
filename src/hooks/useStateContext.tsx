@@ -36,9 +36,7 @@ export const StateContextProvider = ({ children }: { children: ReactNode }) => {
   const [sound, setSound] = useState(true);
   const [replay, setReplay] = useState(0);
   const [loaded, setLoaded] = useState(false);
-  const [soundLoaded, setAudioLoaded] = useState(
-    iOSShite ? [true] : [false, false, false] // iOS not reliable with canplaythrough or canplay events
-  );
+  const [soundLoaded, setAudioLoaded] = useState([false, false, false]);
 
   const [audioWalking, setAudioWalking] = useState<HTMLAudioElement | null>(
     () => new Audio(mp3Walking)
@@ -61,11 +59,10 @@ export const StateContextProvider = ({ children }: { children: ReactNode }) => {
     audioBeep?.addEventListener("canplaythrough", beepCanPlay);
     audioBg?.addEventListener("canplaythrough", bgCanPlay);
     audioWalking?.addEventListener("canplaythrough", walkingCanPlay);
-    if (iOSShite) {
-      audioBeep?.load();
-      audioBg?.load();
-      audioWalking?.load();
-    }
+    // iOS not reliable without load added - not surprising because iOS webkit is 💩
+    audioBeep?.load();
+    audioBg?.load();
+    audioWalking?.load();
     return () => {
       audioBeep?.removeEventListener("canplaythrough", beepCanPlay);
       audioBg?.removeEventListener("canplaythrough", bgCanPlay);
