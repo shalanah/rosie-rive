@@ -53,9 +53,9 @@ export const StateContextProvider = ({ children }: { children: ReactNode }) => {
     audioBg?.addEventListener("canplaythrough", bgCanPlay);
     audioWalking?.addEventListener("canplaythrough", walkingCanPlay);
     // iOS not reliable without load added - not surprising because iOS webkit is 💩
-    audioBeep?.load();
-    audioBg?.load();
-    audioWalking?.load();
+    // audioBeep?.load();
+    // audioBg?.load();
+    // audioWalking?.load();
     return () => {
       audioBeep?.removeEventListener("canplaythrough", beepCanPlay);
       audioBg?.removeEventListener("canplaythrough", bgCanPlay);
