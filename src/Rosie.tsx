@@ -73,6 +73,7 @@ export const Rosie = () => {
   // 🔊 Beep beep click
   useEffect(() => {
     if (clicked && animation.includes("interactive") && audioBeep) {
+      audioBeep.pause(); // bc of 💩 iOS
       audioBeep.currentTime = 0;
       audioBeep.play();
     }
@@ -115,6 +116,7 @@ export const Rosie = () => {
       });
       rive.play();
       // 🔊 entrance sound
+      audioWalking.pause(); // bc of 💩 iOS
       audioWalking.currentTime = 0;
       audioWalking.play();
     }
